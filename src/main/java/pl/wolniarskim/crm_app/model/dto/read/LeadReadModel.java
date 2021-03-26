@@ -4,10 +4,13 @@ import pl.wolniarskim.crm_app.model.Lead;
 
 public class LeadReadModel implements IReadModel<Lead>{
 
+    private long id;
     private String firstName;
     private String lastName;
     private String email;
-    private long id;
+
+    public LeadReadModel() {
+    }
 
     @Override
     public LeadReadModel toModel(Lead lead) {

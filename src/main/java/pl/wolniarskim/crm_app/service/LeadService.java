@@ -40,7 +40,8 @@ public class LeadService implements IService<LeadReadModel, LeadWriteModel>{
     public void deleteById(long id) {
         if(leadRepository.existsById(id))
             leadRepository.deleteById(id);
-        throw new EntityNotFoundException("Lead with given id doesn't exist");
+        else
+            throw new EntityNotFoundException("Lead with given id doesn't exist");
     }
 
     @Override
@@ -51,6 +52,8 @@ public class LeadService implements IService<LeadReadModel, LeadWriteModel>{
 
     @Override
     public LeadReadModel update(LeadWriteModel writeModel, long id) {
+        if(!leadRepository.existsById(id))
+            throw new EntityNotFoundException("Lead with given id doesn't exist");
         Lead tmp = writeModel.toEntity();
         tmp.setId(id);
         Lead savedLead = leadRepository.save(tmp);

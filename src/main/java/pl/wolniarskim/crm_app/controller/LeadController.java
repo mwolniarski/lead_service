@@ -20,8 +20,8 @@ public class LeadController {
         this.service = service;
     }
 
-    @GetMapping("/findById")
-    public LeadReadModel findById(@Param("id") long id){
+    @GetMapping("/findById/{id}")
+    public LeadReadModel findById(@PathVariable("id") long id){
         return service.getById(id);
     }
 
@@ -35,9 +35,13 @@ public class LeadController {
         return service.getAll();
     }
 
-    @GetMapping("/deleteById/{id}")
-    public ResponseEntity deleteById(@PathVariable long id){
+    @DeleteMapping("/deleteById/{id}")
+    public void deleteById(@PathVariable long id){
         service.deleteById(id);
-        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/update")
+    public LeadReadModel update(@Param("id") long id, @RequestBody LeadWriteModel writeModel){
+        return service.update(writeModel,id);
     }
 }
